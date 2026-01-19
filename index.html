@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ramzy Al-Amine</title>
+  <meta name="description" content="Personal website" />
+
+  <!-- Fragment Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#1a1a1a;      /* darker gray */
+      --muted:#5a5a5a;     /* darker muted */
+      --accent:#ff6a00;    /* orange */
+      --max: 860px;
+    }
+
+    [data-theme="dark"]{
+      --bg:#1a1a1a;
+      --text:#f0f0f0;      /* lighter gray/white */
+      --muted:#a0a0a0;     /* lighter muted for dark mode */
+      --accent:#ff6a00;    /* orange - same */
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:"Fragment Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:13px;
+      line-height:1.45;
+      letter-spacing:0.1px;
+      transition:background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .wrap{
+      max-width:var(--max);
+      padding:56px 24px 80px;
+      margin:0 auto;
+    }
+
+    header{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:22px;
+      justify-content:space-between;
+    }
+
+    .title{
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:0.6px;
+    }
+
+    .cursor{
+      display:inline-block;
+      width:10px;
+      height:16px;
+      background:var(--text);
+      transform:translateY(2px);
+      transition:background-color 0.3s ease;
+    }
+
+    .rule{
+      margin:18px 0 26px;
+      color:var(--muted);
+    }
+
+    .block{
+      margin:0 0 26px;
+    }
+
+    .label{
+      color:var(--muted);
+    }
+
+    a{
+      color:var(--accent);
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,106,0,0.35);
+      padding-bottom:1px;
+    }
+    a:hover{
+      border-bottom-color:var(--accent);
+    }
+    a:focus{
+      outline:2px solid rgba(255,106,0,0.35);
+      outline-offset:4px;
+    }
+
+    ul{
+      margin:10px 0 0 0;
+      padding-left:18px;
+      list-style:"- ";
+    }
+    li{ margin:6px 0; }
+
+    /* Optional: use Helvetica for a tiny “aside” line, while keeping the main vibe monospace */
+    .aside{
+      font-family: Helvetica, Arial, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size:13px;
+      color:var(--muted);
+      margin-top:14px;
+    }
+
+    #publications ul{
+      font-size:13px;
+      color:var(--text);
+      list-style:none;
+      padding-left:0;
+    }
+
+    #publications li{
+      position:relative;
+      padding-left:20px;
+      margin:6px 0;
+    }
+
+    #publications li::before{
+      content:"→";
+      position:absolute;
+      left:0;
+      color:var(--accent);
+    }
+
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(120px, 1fr));
+      gap:16px;
+      margin-top:10px;
+    }
+
+    .project-square{
+      aspect-ratio:1;
+      background:var(--bg);
+      border:1px solid rgba(90, 90, 90, 0.3);
+      position:relative;
+      cursor:pointer;
+      transition:border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      overflow:hidden;
+    }
+
+    [data-theme="dark"] .project-square{
+      border:1px solid rgba(160, 160, 160, 0.3);
+    }
+
+    .project-square:hover{
+      border-color:var(--text);
+      box-shadow:0 4px 12px rgba(0, 0, 0, 0.15);
+      transform:translateY(-2px);
+    }
+
+    [data-theme="dark"] .project-square:hover{
+      border-color:var(--text);
+      box-shadow:0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .project-square a{
+      display:block;
+      width:100%;
+      height:100%;
+      text-decoration:none;
+      color:var(--text);
+      position:relative;
+      border:none;
+      padding:0;
+    }
+
+    .project-title{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      font-size:11px;
+      text-align:center;
+      padding:8px;
+      width:100%;
+      transition:opacity 0.2s ease;
+    }
+
+    .project-description{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      font-size:10px;
+      text-align:center;
+      padding:8px;
+      width:100%;
+      opacity:0;
+      transition:opacity 0.2s ease;
+      color:var(--text);
+    }
+
+    .project-square:hover .project-title{
+      opacity:0;
+    }
+
+    .project-square:hover .project-description{
+      opacity:1;
+    }
+
+    footer{
+      margin-top:40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .theme-toggle{
+      background:none;
+      border:none;
+      color:var(--muted);
+      cursor:pointer;
+      font-size:11px;
+      font-family:inherit;
+      padding:0;
+      margin:0;
+      transition:color 0.3s ease;
+      text-decoration:underline;
+    }
+    .theme-toggle:hover{
+      color:var(--text);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <header>
+      <div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;">
+        <div class="title">Ramzy Al-Amine</div>
+        <span class="cursor" aria-hidden="true"></span>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">dark mode</button>
+    </header>
+
+    <div class="rule">~~~</div>
+
+    <section class="block">
+      <div><span class="label">LOCATION:</span> Dallas, TX</div>
+      <div><span class="label">STATUS:</span> online</div>
+      <div><span class="label">CONTACT:</span> <a href="https://x.com/ramz_53">Twitter</a> / <a href="https://www.linkedin.com/in/ralamine/">LinkedIn</a></div>
+
+      <div class="aside">
+        I'm a machine learning engineer at <a href="https://markcubancompanies.com/" target="_blank" rel="noopener noreferrer">Mark Cuban Companies</a>. Prior to that, I helped build risk models at the <a href="https://www.imf.org/en/home" target="_blank" rel="noopener noreferrer">IMF</a>. 
+      </div>
+
+      <div class="aside">
+        I studied economics at <a href="https://www.aub.edu.lb/" target="_blank" rel="noopener noreferrer">AUB</a> and pursued a master's in applied economics at <a href="https://www.georgetown.edu/" target="_blank" rel="noopener noreferrer">Georgetown</a>. I played in <a href="https://basketball.asia-basket.com/player/Ramzy-Al-Amine/Lebanon/Lebanese-U18-National-Team/204964" target="_blank" rel="noopener noreferrer">FIBA Asia 2010</a>.
+      </div>
+    </section>
+
+    <div class="rule">~~~</div>
+
+    <section class="block" id="work">
+      <div class="label">PROJECTS:</div>
+      <div class="projects-grid">
+        <div class="project-square">
+          <a href="https://leaguegrids.com/" target="_blank" rel="noopener noreferrer">
+            <div class="project-title">LeagueGrids</div>
+            <div class="project-description">Advanced stats for your fantasy team delivered weekly</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="notes">
+      <div class="label">WRITING:</div>
+      <ul>
+        <li><a href="https://example.com">Post Title</a> — YYYY-MM</li>
+        <li><a href="https://example.com">Another Post</a> — YYYY-MM</li>
+      </ul>
+    </section>
+
+    <section class="block" id="publications">
+      <div class="label">PUBLICATIONS:</div>
+      <ul>
+        <li><a href="https://doi.org/10.1093/ej/ueac067">Investor Sentiment, Sovereign Debt Mispricing, and Economic Outcomes</a>; <em>The Economic Journal</em>, September 2022, with Tim Willems</li>
+        <li><a href="https://oxford.universitypressscholarship.com/view/10.1093/oso/9780198853091.001.0001/oso-9780198853091-chapter-19">Macroeconomic Policy Challenges in Conflict and Post-Conflict Countries: Experience and Lessons from the Middle East</a>, <em>Book Chapter</em>, with co-authors from the IMF</li>
+        <li><a href="https://www.imf.org/en/Publications/Departmental-Papers-Policy-Papers/Issues/2019/02/08/Economic-Integration-in-the-Maghreb-An-Untapped-Source-of-Growth-46273">Economic Integration in the Maghreb</a>, <em>IMF Policy Paper</em>, 2019, with co-authors from the IMF</li>
+      </ul>
+    </section>
+
+    <footer>
+      <div>© <span id="y"></span> Ramzy Al-Amine</div>
+    </footer>
+  </main>
+
+  <script>
+    // tiny helper for the footer year (optional)
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Dark mode toggle
+    const themeToggle = document.getElementById("themeToggle");
+    const html = document.documentElement;
+    
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem("theme") || "light";
+    if (currentTheme === "dark") {
+      html.setAttribute("data-theme", "dark");
+      themeToggle.textContent = "light mode";
+    } else {
+      themeToggle.textContent = "dark mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      const currentTheme = html.getAttribute("data-theme");
+      if (currentTheme === "dark") {
+        html.removeAttribute("data-theme");
+        themeToggle.textContent = "dark mode";
+        localStorage.setItem("theme", "light");
+      } else {
+        html.setAttribute("data-theme", "dark");
+        themeToggle.textContent = "light mode";
+        localStorage.setItem("theme", "dark");
+      }
+    });
+  </script>
+</body>
+</html>
+
