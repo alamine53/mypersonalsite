@@ -112,20 +112,23 @@
       margin-top:14px;
     }
 
-    #publications ul{
+    #publications ul,
+    #bio{
       font-size:13px;
       color:var(--text);
       list-style:none;
       padding-left:0;
     }
 
-    #publications li{
+    #publications li,
+    #bio li{
       position:relative;
       padding-left:20px;
       margin:6px 0;
     }
 
-    #publications li::before{
+    #publications li::before,
+    #bio li::before{
       content:"→";
       position:absolute;
       left:0;
@@ -154,14 +157,11 @@
     }
 
     .project-square:hover{
-      border-color:var(--text);
-      box-shadow:0 4px 12px rgba(0, 0, 0, 0.15);
-      transform:translateY(-2px);
+      border-color:var(--accent);
     }
 
     [data-theme="dark"] .project-square:hover{
-      border-color:var(--text);
-      box-shadow:0 4px 12px rgba(0, 0, 0, 0.4);
+      border-color:var(--accent);
     }
 
     .project-square a{
@@ -173,40 +173,53 @@
       position:relative;
       border:none;
       padding:0;
+      transition:color 0.2s ease;
+    }
+
+    .project-square:hover a{
+      color:var(--accent);
     }
 
     .project-title{
       position:absolute;
-      top:50%;
-      left:50%;
-      transform:translate(-50%, -50%);
-      font-size:11px;
-      text-align:center;
-      padding:8px;
-      width:100%;
-      transition:opacity 0.2s ease;
+      bottom:8px;
+      left:8px;
+      font-size:14px;
+      font-weight:bold;
+      font-family: Helvetica, Arial, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      letter-spacing:-0.3px;
+      padding:0;
+      margin:0;
+      color:var(--muted);
     }
 
     .project-description{
       position:absolute;
-      top:50%;
-      left:50%;
-      transform:translate(-50%, -50%);
-      font-size:10px;
-      text-align:center;
-      padding:8px;
-      width:100%;
+      top:8px;
+      right:8px;
+      font-size:12px;
+      text-align:right;
+      padding:0;
+      max-width:calc(100% - 16px);
+      font-family: Helvetica, Arial, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color:var(--text);
+      letter-spacing:-0.2px;
+      line-height:1.2;
+    }
+
+    .project-square a::after{
+      content:"";
+      position:absolute;
+      bottom:8px;
+      right:8px;
       opacity:0;
       transition:opacity 0.2s ease;
-      color:var(--text);
     }
 
-    .project-square:hover .project-title{
-      opacity:0;
-    }
-
-    .project-square:hover .project-description{
+    .project-square:hover a::after{
+      content:"→";
       opacity:1;
+      color:var(--accent);
     }
 
     footer{
@@ -250,13 +263,11 @@
       <div><span class="label">STATUS:</span> online</div>
       <div><span class="label">CONTACT:</span> <a href="https://x.com/ramz_53">Twitter</a> / <a href="https://www.linkedin.com/in/ralamine/">LinkedIn</a></div>
 
-      <div class="aside">
-        I'm a machine learning engineer at <a href="https://markcubancompanies.com/" target="_blank" rel="noopener noreferrer">Mark Cuban Companies</a>. Prior to that, I helped build risk models at the <a href="https://www.imf.org/en/home" target="_blank" rel="noopener noreferrer">IMF</a>. 
-      </div>
-
-      <div class="aside">
-        I studied economics at <a href="https://www.aub.edu.lb/" target="_blank" rel="noopener noreferrer">AUB</a> and pursued a master's in applied economics at <a href="https://www.georgetown.edu/" target="_blank" rel="noopener noreferrer">Georgetown</a>. I played in <a href="https://basketball.asia-basket.com/player/Ramzy-Al-Amine/Lebanon/Lebanese-U18-National-Team/204964" target="_blank" rel="noopener noreferrer">FIBA Asia 2010</a>.
-      </div>
+      <ul id="bio">
+        <li>I work as a machine learning engineer at <a href="https://markcubancompanies.com/" target="_blank" rel="noopener noreferrer">Mark Cuban Companies</a>. Prior to that, I helped build risk models as a research analyst at the <a href="https://www.imf.org/en/home" target="_blank" rel="noopener noreferrer">IMF</a>.</li>
+        <li>I studied economics at <a href="https://www.aub.edu.lb/" target="_blank" rel="noopener noreferrer">AUB</a> and, later on, at <a href="https://www.georgetown.edu/" target="_blank" rel="noopener noreferrer">Georgetown University</a>.</li>
+        <li>I played on the Lebanese U18 national team in <a href="https://basketball.asia-basket.com/player/Ramzy-Al-Amine/Lebanon/Lebanese-U18-National-Team/204964" target="_blank" rel="noopener noreferrer">FIBA Asia 2010</a>.</li>
+      </ul>
     </section>
 
     <div class="rule">~~~</div>
@@ -266,8 +277,8 @@
       <div class="projects-grid">
         <div class="project-square">
           <a href="https://leaguegrids.com/" target="_blank" rel="noopener noreferrer">
-            <div class="project-title">LeagueGrids</div>
-            <div class="project-description">Advanced stats for your fantasy team delivered weekly</div>
+            <div class="project-title">League Grids</div>
+            <div class="project-description">Live web app that offers advanced stats for fantasy basketball leagues</div>
           </a>
         </div>
       </div>
